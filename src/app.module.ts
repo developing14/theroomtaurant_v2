@@ -5,6 +5,8 @@ import { AppService } from './app.service'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { AccountModule } from './account/account.module'
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -15,7 +17,9 @@ import { AccountModule } from './account/account.module'
         password: '', 
         database: 'TheRoomtaurantDB',
         autoLoadEntities: true,
-      }), AccountModule],
+      }), ConfigModule.forRoot({
+            isGlobal: true, 
+        }),AccountModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

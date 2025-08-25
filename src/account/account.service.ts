@@ -25,8 +25,16 @@ export class AccountService {
     return this.AccountRepository.find();
   }
 
-  findOne(id: string) {
+  findOneById(id: string) {
     return this.AccountRepository.findOneBy({_id: new ObjectId(id)});
+  }
+
+  findOneByLoginName(loginName: string) {
+    return this.AccountRepository.findOneBy({loginName:loginName});
+  }
+
+  findOneByEmail(email: string) {
+    return this.AccountRepository.findOneBy({email: email});
   }
 
   update(id: string, updateAccountDto: UpdateAccountDto) {
