@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { AccountModule } from './account/account.module'
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config'
+import { EmployeeModule } from './employee/employee.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -19,7 +20,7 @@ import { ConfigModule } from '@nestjs/config'
         autoLoadEntities: true,
       }), ConfigModule.forRoot({
             isGlobal: true, 
-        }),AccountModule, AuthModule],
+        }),AccountModule, AuthModule, EmployeeModule],
   controllers: [AppController],
   providers: [AppService],
 })

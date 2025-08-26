@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -35,6 +35,13 @@ export class AccountService {
 
   findOneByEmail(email: string) {
     return this.AccountRepository.findOneBy({email: email});
+  }
+
+  async isExisted(identifier:any):Promise<null | string>{
+    if (await this.findOneByLoginName(identifier)) return 'Login Name is used'
+    if (await this.findOneByEmail(identifier)) return 'Email is used'
+      
+    return null
   }
 
   update(id: string, updateAccountDto: UpdateAccountDto) {
