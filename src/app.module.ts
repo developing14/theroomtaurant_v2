@@ -8,6 +8,9 @@ import { AccountModule } from './account/account.module'
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config'
 import { EmployeeModule } from './employee/employee.module';
+import { DepartmentModule } from './department/department.module';
+import { AttendanceModule } from './attendance/attendance.module';
+import { PositionModule } from './position/position.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -20,7 +23,7 @@ import { EmployeeModule } from './employee/employee.module';
         autoLoadEntities: true,
       }), ConfigModule.forRoot({
             isGlobal: true, 
-        }),AccountModule, AuthModule, EmployeeModule],
+        }),AccountModule, AuthModule, EmployeeModule, DepartmentModule, AttendanceModule, PositionModule],
   controllers: [AppController],
   providers: [AppService],
 })
