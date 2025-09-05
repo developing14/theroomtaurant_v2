@@ -18,7 +18,7 @@ export class AccountController {
     return this.accountService.findAll();
   }
 
-  @Get(':id')
+  @Get('id/:id')
   findOne(@Param('id') id: string) {
     return this.accountService.findOneById(id);
   }

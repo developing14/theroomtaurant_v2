@@ -17,7 +17,7 @@ export class DepartmentController {
     return this.departmentService.findAll();
   }
 
-  @Get(':id')
+  @Get('id/:id')
   findOne(@Param('id') id: string) {
     return this.departmentService.findOneById(id);
   }

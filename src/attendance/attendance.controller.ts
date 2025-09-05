@@ -22,7 +22,7 @@ export class AttendanceController {
     return this.attendanceService.findAll();
   }
 
-  @Get(':id')
+  @Get('id/:id')
   findOne(@Param('id') id: string) {
     return this.attendanceService.findOneById(id);
   }
