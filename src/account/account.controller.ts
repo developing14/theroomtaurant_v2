@@ -10,7 +10,7 @@ export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @Post()
-  create(@Body(ValidationPipe) createAccountDto: CreateAccountDto) {
+  async create(@Body(ValidationPipe) createAccountDto: CreateAccountDto) {
     return this.accountService.create(createAccountDto);
   }
 

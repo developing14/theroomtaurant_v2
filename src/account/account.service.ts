@@ -17,8 +17,9 @@ export class AccountService {
   ){}
   
   create(createAccountDto: CreateAccountDto) {    
+    const created = this.AccountRepository.create(createAccountDto);
     createAccountDto.password = bcrypt.hashSync(createAccountDto.password, 10)
-    return this.AccountRepository.save(createAccountDto);
+    return this.AccountRepository.save(created);
   }
 
   findAll() {

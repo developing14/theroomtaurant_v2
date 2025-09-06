@@ -9,7 +9,8 @@ import { ObjectId, Repository } from 'typeorm';
 export class EmployeeService {
   constructor (@InjectRepository(Employee) private readonly employeeRepo:Repository<Employee>){}
   create(createEmployeeDto: CreateEmployeeDto) {
-    return this.employeeRepo.save(createEmployeeDto);
+    const employee = this.employeeRepo.create(createEmployeeDto)
+    return this.employeeRepo.save(employee);
   }
 
   findAll() {

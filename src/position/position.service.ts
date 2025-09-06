@@ -10,7 +10,8 @@ import { Position } from './entities/position.entity';
 export class PositionService {
   constructor(@InjectRepository(Position) private readonly PositionRepo:Repository<Position>){}
   create(createPositionDto: CreatePositionDto) {
-    return this.PositionRepo.save(createPositionDto);
+    const position = this.PositionRepo.create(createPositionDto)
+    return this.PositionRepo.save(position);
   }
 
   findAll() {

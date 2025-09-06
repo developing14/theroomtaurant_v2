@@ -10,7 +10,8 @@ import {ObjectId} from 'mongodb'
 export class DepartmentService {
   constructor (@InjectRepository(Department) private readonly DepartmentRepo:Repository<Department>){}
   create(createDepartmentDto: CreateDepartmentDto) {
-    return this.DepartmentRepo.save(createDepartmentDto);
+    const department = this.DepartmentRepo.create(createDepartmentDto)
+    return this.DepartmentRepo.save(department);
   }
 
   findAll() {

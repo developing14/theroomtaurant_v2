@@ -10,7 +10,8 @@ import { Repository } from 'typeorm';
 export class AttendanceService {
   constructor(@InjectRepository(Attendance) private readonly AttendanceRepo:Repository<Attendance>){}
   create(createAttendanceDto: CreateAttendanceDto) {
-    return this.AttendanceRepo.save(createAttendanceDto);
+    const attendance = this.AttendanceRepo.create(createAttendanceDto)
+    return this.AttendanceRepo.save(attendance);
   }
 
   findAll() {
