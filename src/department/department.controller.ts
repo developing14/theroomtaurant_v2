@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } fro
 import { DepartmentService } from './department.service';
 import { CreateDepartmentDto } from './dto/create-department.dto';
 import { UpdateDepartmentDto } from './dto/update-department.dto';
+import { ParseObjectIdPipe } from '@nestjs/mongoose';
 
 @Controller('department')
 export class DepartmentController {
@@ -18,22 +19,22 @@ export class DepartmentController {
   }
 
   @Get('id/:id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseObjectIdPipe) id: string) {
     return this.departmentService.findOneById(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDepartmentDto: UpdateDepartmentDto) {
+  update(@Param('id', ParseObjectIdPipe) id: string, @Body() updateDepartmentDto: UpdateDepartmentDto) {
     return this.departmentService.update(id, updateDepartmentDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseObjectIdPipe) id: string) {
     return this.departmentService.remove(id);
   }
   
   @Patch(':id/restore')
-  restore(@Param('id') id: string) {
+  restore(@Param('id', ParseObjectIdPipe) id: string) {
     return this.departmentService.restore(id);
   }
 }

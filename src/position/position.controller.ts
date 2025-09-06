@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe} from
 import { PositionService } from './position.service';
 import { CreatePositionDto } from './dto/create-position.dto';
 import { UpdatePositionDto } from './dto/update-position.dto';
+import { ParseObjectIdPipe } from '@nestjs/mongoose';
 
 @Controller('position')
 export class PositionController {
@@ -18,7 +19,7 @@ export class PositionController {
   }
 
   @Get('id/:id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseObjectIdPipe) id: string) {
       return this.positionService.findOneById(id);
   }
 
@@ -28,12 +29,12 @@ export class PositionController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePositionDto: UpdatePositionDto) {
+  update(@Param('id', ParseObjectIdPipe) id: string, @Body() updatePositionDto: UpdatePositionDto) {
     return this.positionService.update(id, updatePositionDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseObjectIdPipe) id: string) {
     return this.positionService.remove(id);
   }
 }
