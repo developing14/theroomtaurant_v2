@@ -2,12 +2,15 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } fro
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
-import { Account } from './entities/account.entity';
 import { ParseObjectIdPipe } from '@nestjs/mongoose';
+import { ConfigService } from '@nestjs/config';
+
 
 @Controller('account')
 export class AccountController {
-  constructor(private readonly accountService: AccountService) {}
+  constructor(
+    private readonly accountService: AccountService,
+    private readonly configService: ConfigService) {}
 
   @Post()
   async create(@Body(ValidationPipe) createAccountDto: CreateAccountDto) {

@@ -11,9 +11,12 @@ import { EmployeeModule } from './employee/employee.module';
 import { DepartmentModule } from './department/department.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { PositionModule } from './position/position.module';
+import { CandidateModule } from './candidate/candidate.module';
+import * as dotenv from 'dotenv'
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [
+    TypeOrmModule.forRoot({
         type: 'mongodb',
         host: 'localhost',
         port: 27017,
@@ -21,11 +24,17 @@ import { PositionModule } from './position/position.module';
         password: '', 
         database: 'TheRoomtaurantDB',
         autoLoadEntities: true,
-      }), ConfigModule.forRoot({
-            isGlobal: true, 
-        }),AccountModule, AuthModule, EmployeeModule, DepartmentModule, AttendanceModule, PositionModule],
+      }), 
+    ConfigModule.forRoot({
+            isGlobal: true,
+            // envFilePath: '.env',
+        }),
+    AccountModule, AuthModule, EmployeeModule, DepartmentModule, AttendanceModule, PositionModule, CandidateModule],
   controllers: [AppController],
   providers: [AppService],
 })
 
 export class AppModule {}
+
+
+

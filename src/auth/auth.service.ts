@@ -27,11 +27,11 @@ export class AuthService {
 
         const payload = { sub: target._id, loginName: target.loginName };
 
-        return this.JwtService.signAsync(payload, {secret: 'mysecret'})
+        return this.JwtService.signAsync(payload, {secret: this.ConfigService.get<string>('MYSECRET')})
     }
 
     async verifyToken(token:any){
-        const verified = this.JwtService.verifyAsync(token, {secret: 'mysecret'})
+        const verified = this.JwtService.verifyAsync(token, {secret: this.ConfigService.get<string>('MYSECRET')})
         if (!verified) throw new UnauthorizedException('Token is not accepted')
 
         return verified
