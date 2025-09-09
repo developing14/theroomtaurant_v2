@@ -1,5 +1,6 @@
+import { Qualification } from "src/candidate/entities/qualification.entity";
 import { Employee } from "src/employee/entities/employee.entity";
-import { Column, Entity, ManyToOne, ObjectId, ObjectIdColumn } from "typeorm";
+import { Column, Entity, ManyToOne, ObjectId, ObjectIdColumn, OneToMany } from "typeorm";
 
 @Entity()
 export class Position {

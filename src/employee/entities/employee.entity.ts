@@ -35,6 +35,12 @@ export class Employee {
 
         @Column()
         taxCode: string
+
+        @Column()
+        insuranceCode: string
+
+        @Column()
+        contract: string
         
         @Column()
         isDeleted: boolean
