@@ -3,7 +3,7 @@ import { CreateAttendanceDto } from './dto/create-attendance.dto';
 import { UpdateAttendanceDto } from './dto/update-attendance.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Attendance } from './entities/attendance.entity';
-import {ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import { Repository } from 'typeorm';
 
 @Injectable()

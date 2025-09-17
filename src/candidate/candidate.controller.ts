@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { CandidateService } from './candidate.service';
-import { CreateCandidateDto, CreateDocumentDto, CreateQualificationDto } from './dto/create-candidate.dto';
+import { CreateCandidateDto, CreateDocumentsDto, CreateQualificationDto } from './dto/create-candidate.dto';
 import { UpdateCandidateDto } from './dto/update-candidate.dto';
 
 @Controller('candidate')
@@ -8,7 +8,7 @@ export class CandidateController {
   constructor(private readonly candidateService: CandidateService) {}
 
   @Post()
-  createCandidate(@Body() createCandidateDto: CreateCandidateDto) {
+  createCandidate(@Body(new ValidationPipe) createCandidateDto: CreateCandidateDto) {
     return this.candidateService.createCandidate(createCandidateDto);
   }
 
@@ -17,19 +17,24 @@ export class CandidateController {
     return this.candidateService.createQualification(createQualificationDto);
   }
 
-  @Post('Document')
-  createDocument(@Body() createDocumentDto: CreateDocumentDto) {
-    return this.candidateService.createDocument(createDocumentDto);
+  @Post('Documents')
+  createDocuments(@Body(new ValidationPipe) createDocumentsDto: CreateDocumentsDto) {
+    return this.candidateService.createDocuments(createDocumentsDto);
   }
 
   @Get()
-  findAllCandidate() {
-    return this.candidateService.findAllCandidate();
+  async findAllCandidate() {
+    
+    const candidate = await this.candidateService.findAllCandidate();
+    return candidate
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.candidateService.findCandidateById(id);
+  @Get('id/:id')
+  async findOne(@Param('id') id: string) {
+    const candidate = await this.candidateService.findCandidateById(id);
+    const qualification = await this.candidateService.findQualificationByCandidate(id);
+    const Documents = await this.candidateService.findDocumentsByCandidate(id);
+    return candidate
   }
 
   @Patch(':id')

@@ -1,6 +1,5 @@
 import { IsDate, IsMongoId, IsNotEmpty, IsString } from "class-validator";
 import { ObjectId } from "typeorm";
-import { Candidate } from "../entities/candidate.entity";
 
 export class CreateCandidateDto {
     @IsString()
@@ -27,7 +26,7 @@ export class CreateCandidateDto {
 export class CreateQualificationDto {
 
     @IsNotEmpty()
-    candidate: Candidate
+    candidate: ObjectId
 
     @IsString()
     @IsNotEmpty()
@@ -47,7 +46,7 @@ export class CreateQualificationDto {
 
 }
 
-export class CreateDocumentDto {
+export class CreateDocumentsDto {
     @IsString()
     @IsNotEmpty()
     cv: string    
@@ -65,5 +64,5 @@ export class CreateDocumentDto {
     HoKhau: string
     
     @IsNotEmpty()
-    candidate: Candidate
+    candidate: ObjectId
 }

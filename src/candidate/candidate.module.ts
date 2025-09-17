@@ -5,10 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Candidate } from './entities/candidate.entity';
 import { Qualification } from './entities/qualification.entity';
-import {Document} from './entities/document'
+import {Documents} from './entities/documents.entity'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Candidate, Document, Qualification])],
+  imports: [TypeOrmModule.forFeature([Candidate, Documents, Qualification])],
   controllers: [CandidateController],
   providers: [CandidateService],
 })

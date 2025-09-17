@@ -1,8 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateCandidateDto, CreateDocumentDto, CreateQualificationDto } from './create-candidate.dto';
+import { CreateCandidateDto, CreateDocumentsDto, CreateQualificationDto } from './create-candidate.dto';
 import { IsDate, IsMongoId, IsOptional, IsString } from 'class-validator';
 import { ObjectId } from 'typeorm';
-import { Candidate } from '../entities/candidate.entity';
 
 export class UpdateCandidateDto extends PartialType(CreateCandidateDto) {
         @IsString()
@@ -26,7 +25,7 @@ export class UpdateCandidateDto extends PartialType(CreateCandidateDto) {
         identityCard: string
 }
 export class UpdateQualificationDto extends PartialType(CreateQualificationDto) {
-    candidate: Candidate
+        candidate: ObjectId
     
         @IsString()
         @IsOptional()
@@ -44,14 +43,14 @@ export class UpdateQualificationDto extends PartialType(CreateQualificationDto) 
         @IsOptional()
         applyPosition: ObjectId
 }
-export class UpdateDocumentDto extends PartialType(CreateDocumentDto) {
+export class UpdateDocumentsDto extends PartialType(CreateDocumentsDto) {
         
         @IsOptional()
-        candidate: Candidate
+        candidate: ObjectId
     
         @IsString()
         @IsOptional()
-        CV: string    
+        cv: string    
         
         @IsString()
         @IsOptional()

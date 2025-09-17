@@ -33,6 +33,6 @@ export class Attendance{
     timeOut:Date
 
     @ManyToOne(()=>Employee, (employee)=> employee.attendance)
-    employee:Employee
+    employee:ObjectId
 
 }

@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CreateCandidateDto, CreateDocumentDto, CreateQualificationDto } from './dto/create-candidate.dto';
-import { UpdateCandidateDto, UpdateDocumentDto, UpdateQualificationDto } from './dto/update-candidate.dto';
+import { CreateCandidateDto, CreateDocumentsDto as CreateDocumentsDto, CreateQualificationDto } from './dto/create-candidate.dto';
+import { UpdateCandidateDto, UpdateDocumentsDto as UpdateDocumentsDto, UpdateQualificationDto } from './dto/update-candidate.dto';
 
 import { Candidate } from './entities/candidate.entity';
 import { Qualification } from './entities/qualification.entity';
-import { Document } from './entities/document'
+import { Documents } from './entities/documents.entity'
 import { ObjectId } from 'mongodb';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class CandidateService {
   constructor(
     @InjectRepository(Candidate) private readonly CandidateRepo:Repository<Candidate>,
     @InjectRepository(Qualification) private readonly QualificationRepo:Repository<Qualification>,
-    @InjectRepository(Document) private readonly DocumentRepo:Repository<Document>
+    @InjectRepository(Documents) private readonly DocumentsRepo:Repository<Documents>
   ){}
   
   createCandidate(createCandidateDto: CreateCandidateDto) {
@@ -28,9 +28,9 @@ export class CandidateService {
     return this.QualificationRepo.save(qualification);
   }
 
-  createDocument(createDocumentDto: CreateDocumentDto) {
-    const document = this.DocumentRepo.create(createDocumentDto)
-    return this.DocumentRepo.save(document);
+  createDocuments(createDocumentsDto: CreateDocumentsDto) {
+    const Documents = this.DocumentsRepo.create(createDocumentsDto)
+    return this.DocumentsRepo.save(Documents);
   }
 
   findAllCandidate() {
@@ -41,8 +41,8 @@ export class CandidateService {
     return this.QualificationRepo.find();
   }
 
-  findAllDocument() {
-    return this.DocumentRepo.find();
+  findAllDocuments() {
+    return this.DocumentsRepo.find();
   }
 
   findCandidateById(id: string) {
@@ -53,8 +53,8 @@ export class CandidateService {
     return this.QualificationRepo.findOneBy({candidate: new ObjectId(candidateId)})
   }
 
-  findDocumentByCandidate(candidateId: string){
-    return this.DocumentRepo.findOneBy({candidate: new ObjectId(candidateId)})
+  findDocumentsByCandidate(candidateId: string){
+    return this.DocumentsRepo.findOneBy({candidate: new ObjectId(candidateId)})
   }
 
   updateCandidate(id: string, updateCandidateDto: UpdateCandidateDto) {
@@ -71,10 +71,10 @@ export class CandidateService {
     );
   }
 
-  updateDocument(candidateId: string, updateDocumentDto: UpdateDocumentDto) {
-    return this.DocumentRepo.update(
+  updateDocuments(candidateId: string, updateDocumentsDto: UpdateDocumentsDto) {
+    return this.DocumentsRepo.update(
       {candidate: new ObjectId(candidateId)},
-      updateDocumentDto
+      updateDocumentsDto
     );
   }
 
@@ -96,7 +96,7 @@ export class CandidateService {
     return this.QualificationRepo.delete({candidate: new ObjectId(candidateId)})
   }
 
-  removeDocument(candidateId: string){
-    return this.DocumentRepo.delete({candidate: new ObjectId(candidateId)})
+  removeDocuments(candidateId: string){
+    return this.DocumentsRepo.delete({candidate: new ObjectId(candidateId)})
   }
 }

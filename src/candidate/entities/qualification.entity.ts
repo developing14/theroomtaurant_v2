@@ -9,11 +9,14 @@ export class Qualification {
             this.qualification = qualification.qualification
             this.workExperience = qualification.workExperience
             this.applyDay = qualification.applyDay
+            this.applyPosition = qualification.applyPosition
             this.recruitionDay = qualification.recruitionDay
             this.candidate = qualification.candidate
-            this.applyPosition = qualification.applyPosition
         }
     }
+
+    @ObjectIdColumn()
+    _id: ObjectId
     
     @Column()
     qualification: string
@@ -30,7 +33,7 @@ export class Qualification {
     @ObjectIdColumn()
     @OneToOne(()=> Candidate)
     @JoinColumn()
-    candidate: Candidate
+    candidate: ObjectId
 
     @ManyToOne(()=> Position, (position)=>position._id)
     applyPosition: ObjectId

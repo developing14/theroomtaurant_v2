@@ -9,6 +9,7 @@ export class Candidate {
             this.phone = candidate.phone
             this.address = candidate.address
             this.identityCard = candidate.identityCard
+            this.isDeleted = false
         }
     }
 
