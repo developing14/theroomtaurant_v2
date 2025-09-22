@@ -2,6 +2,8 @@ import { Column, Entity, JoinColumn, ObjectId, ObjectIdColumn, OneToMany, OneToO
 import { Account } from "src/account/entities/account.entity"
 import { Position } from "src/position/entities/position.entity"
 import { Attendance } from "src/attendance/entities/attendance.entity"
+import { InterviewReport } from "src/candidate/entities/interviewReport.entity"
+import { Assignment } from "src/position/entities/assignment.entity"
 
 @Entity()
 export class Employee {
@@ -12,8 +14,14 @@ export class Employee {
             this.phone = payload.phone
             this.email= payload.email
             this.address= payload.address
-            this.isDeleted = false
-        }
+            this.taxCode= payload.taxCode
+            this.insuranceCode= payload.insuranceCode
+            this.contract= payload.contract
+            this.leaveTime= payload.leaveTime
+            this.account= payload.account
+            this.attendances= payload.attendances
+            this.interviewReports= payload.interviewReports
+        }   
     }
         @ObjectIdColumn()
         _id:ObjectId
@@ -41,17 +49,23 @@ export class Employee {
 
         @Column()
         contract: string
-        
+
         @Column()
         isDeleted: boolean
+        
+        @Column()
+        leaveTime: Date
 
         @OneToOne(()=> Account)
         @JoinColumn()
         account:Account
 
-        @OneToMany(()=>Position, (position)=>position.employee )
-        position: Position[]
-
         @OneToMany(()=>Attendance, (attendance)=> attendance.employee)
-        attendance: Attendance[]
+        attendances: Attendance[]
+
+        @OneToMany(()=> InterviewReport, (interviewReport)=> interviewReport.interviewer)
+        interviewReports: ObjectId[]
+
+        @OneToMany(()=> Assignment, (assignment)=> assignment.employee)
+        assignments: ObjectId[]
 }

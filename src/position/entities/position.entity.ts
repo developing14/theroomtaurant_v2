@@ -1,6 +1,6 @@
-import { Qualification } from "src/candidate/entities/qualification.entity";
-import { Employee } from "src/employee/entities/employee.entity";
+import { Department } from "src/department/entities/department.entity";
 import { Column, Entity, ManyToOne, ObjectId, ObjectIdColumn, OneToMany } from "typeorm";
+import { Assignment } from "./assignment.entity";
 
 @Entity()
 export class Position {
@@ -9,9 +9,9 @@ export class Position {
         if (payload){
             this.name = payload.name
             this.jobType = payload.jobType
-            this.ClaimTime = payload.ClaimTime
-            this.LeaveTime = payload.LeaveTime
-            this.employee = payload.employee
+            this.salaryLevel = payload.salaryLevel
+            this.department = payload.department
+            this.assignments = payload.assignments
         }
     }
 
@@ -25,12 +25,12 @@ export class Position {
     jobType:string
 
     @Column()
-    ClaimTime:Date
+    salaryLevel:number
 
-    @Column()
-    LeaveTime:Date
+    @ManyToOne(()=> Department, (department)=> department.positions)
+    department:ObjectId
 
-    @ManyToOne(()=>Employee, (employee)=> employee.account)
-    employee:Employee
+    @OneToMany(()=> Assignment, (assignment)=> assignment.position)
+    assignments: ObjectId[]
 
 }

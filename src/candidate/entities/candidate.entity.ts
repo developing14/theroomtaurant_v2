@@ -1,4 +1,5 @@
-import { Column, Entity, ObjectId, ObjectIdColumn } from "typeorm";
+import { Column, Entity, ObjectId, ObjectIdColumn, OneToMany } from "typeorm";
+import { InterviewReport } from "./interviewReport.entity";
 
 @Entity()
 export class Candidate {
@@ -34,5 +35,8 @@ export class Candidate {
 
     @Column()
     isDeleted: boolean
+
+    @OneToMany(() => InterviewReport, (interviewReport)=> interviewReport.interviewee)
+    interviewReports: ObjectId[]
 
 }

@@ -66,3 +66,29 @@ export class CreateDocumentsDto {
     @IsNotEmpty()
     candidate: ObjectId
 }
+
+export class CreateInterviewReportDto {
+    @IsMongoId()
+    @IsNotEmpty()
+    interviewer: ObjectId
+
+    @IsMongoId()
+    @IsNotEmpty()
+    interviewee: ObjectId
+
+    @IsString()
+    @IsNotEmpty()
+    location: string   
+
+    @IsDate()
+    @IsNotEmpty()
+    date: Date  
+
+    @IsString()
+    @IsNotEmpty()
+    content: string
+
+    @IsString()
+    @IsNotEmpty()
+    feedback: string
+}   

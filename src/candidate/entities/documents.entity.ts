@@ -28,7 +28,6 @@ export class Documents{
     @Column()
     HoKhau: string
 
-    @ObjectIdColumn()
     @OneToOne(()=> Candidate)
     @JoinColumn()
     candidate: ObjectId

@@ -32,7 +32,7 @@ export class Attendance{
     @Column()
     timeOut:Date
 
-    @ManyToOne(()=>Employee, (employee)=> employee.attendance)
+    @ManyToOne(()=>Employee, (employee)=> employee.attendances)
     employee:ObjectId
 
 }

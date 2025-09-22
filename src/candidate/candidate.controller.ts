@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { CandidateService } from './candidate.service';
-import { CreateCandidateDto, CreateDocumentsDto, CreateQualificationDto } from './dto/create-candidate.dto';
+import { CreateCandidateDto, CreateDocumentsDto, CreateInterviewReportDto, CreateQualificationDto } from './dto/create-candidate.dto';
 import { UpdateCandidateDto } from './dto/update-candidate.dto';
 
 @Controller('candidate')
@@ -22,6 +22,11 @@ export class CandidateController {
     return this.candidateService.createDocuments(createDocumentsDto);
   }
 
+  @Post('interviewReport')
+  createInterviewReport(@Body() createInterviewReportDto: CreateInterviewReportDto) {
+    return this.candidateService.createInterviewReport(createInterviewReportDto);
+  }
+
   @Get()
   async findAllCandidate() {
     
@@ -34,7 +39,8 @@ export class CandidateController {
     const candidate = await this.candidateService.findCandidateById(id);
     const qualification = await this.candidateService.findQualificationByCandidate(id);
     const Documents = await this.candidateService.findDocumentsByCandidate(id);
-    return candidate
+    const interviewReport = await this.candidateService.findInterviewReportsByCandidate(id);
+    return {...candidate, ...qualification, ...Documents, ...interviewReport}
   }
 
   @Patch(':id')

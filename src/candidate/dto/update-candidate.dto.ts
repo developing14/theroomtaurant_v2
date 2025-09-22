@@ -64,3 +64,28 @@ export class UpdateDocumentsDto extends PartialType(CreateDocumentsDto) {
         @IsOptional()
         HoKhau: string
 }
+
+export class UpdateInterviewReportDto {
+        @IsMongoId()
+        @IsOptional()
+        interviewer: ObjectId   
+
+        @IsString()
+        @IsOptional()
+        location: string
+
+        @IsDate()
+        @IsOptional()
+        date: Date
+
+        @IsString()
+        @IsOptional()
+        content: string
+
+        @IsString()
+        @IsOptional()
+        feedback: string
+
+        @IsOptional()
+        rating: number
+}

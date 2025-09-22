@@ -30,7 +30,6 @@ export class Qualification {
     @Column()
     recruitionDay: Date
 
-    @ObjectIdColumn()
     @OneToOne(()=> Candidate)
     @JoinColumn()
     candidate: ObjectId

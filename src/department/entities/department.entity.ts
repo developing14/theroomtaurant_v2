@@ -1,4 +1,5 @@
-import { Column, Entity, ObjectId, ObjectIdColumn } from "typeorm";
+import { Position } from "src/position/entities/position.entity";
+import { Column, Entity, ObjectId, ObjectIdColumn, OneToMany } from "typeorm";
 
 @Entity()
 export class Department {
@@ -17,4 +18,7 @@ export class Department {
 
     @Column()
     isDeleted: boolean
+
+    @OneToMany(()=> Position, (positions)=> positions)
+    positions:ObjectId[]
 }
