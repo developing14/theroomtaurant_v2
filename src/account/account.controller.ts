@@ -27,17 +27,17 @@ export class AccountController {
     return this.accountService.findOneById(id);
   }
 
-  @Patch(':id')
+  @Patch('id/:id')
   update(@Param('id', ParseObjectIdPipe) id: string, @Body() updateAccountDto: UpdateAccountDto) {
     return this.accountService.update(id, updateAccountDto);
   }
 
-  @Delete(':id')
+  @Delete('id/:id')
   remove(@Param('id', ParseObjectIdPipe) id: string) {
     return this.accountService.remove(id);
   }
 
-  @Patch(':id/restore')
+  @Patch('id/:id/restore')
   restore(@Param('id', ParseObjectIdPipe) id:string){
     return this.accountService.restore(id)
   }

@@ -1,41 +1,40 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable} from '@nestjs/common';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import {ObjectId} from 'mongodb'
+
+import { ObjectId } from 'mongodb'
 
 import * as bcrypt from 'bcrypt'
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Account, AccountSchema } from './schema/account.schema';
 
-import { Account } from './entities/account.entity';
 
 @Injectable()
 export class AccountService {
-  constructor(
-    @InjectRepository(Account)
-    private readonly AccountRepository:Repository<Account>
-  ){}
-  
+
+  constructor(@InjectModel('Account') private readonly accountModel:Model<Account>) {}  
+
   create(createAccountDto: CreateAccountDto) {    
-    const created = this.AccountRepository.create(createAccountDto);
-    createAccountDto.password = bcrypt.hashSync(createAccountDto.password, 10)
-    return this.AccountRepository.save(created);
+    const created = new this.accountModel(createAccountDto);
+    created.password = bcrypt.hashSync(createAccountDto.password, 10)
+    return created.save();
   }
 
   findAll() {
-    return this.AccountRepository.find();
+    return this.accountModel.find();
   }
 
   findOneById(id: string) {
-    return this.AccountRepository.findOneBy({_id: new ObjectId(id)});
+    return this.accountModel.findById(id);
   }
 
   findOneByLoginName(loginName: string) {
-    return this.AccountRepository.findOneBy({loginName:loginName});
+    return this.accountModel.findOne({loginName:loginName});
   }
 
   findOneByEmail(email: string) {
-    return this.AccountRepository.findOneBy({email: email});
+    return this.accountModel.findOne({email: email});
   }
 
   async isExisted(identifier:any):Promise<null | string>{
@@ -46,15 +45,15 @@ export class AccountService {
   }
 
   update(id: string, updateAccountDto: UpdateAccountDto) {
-    return this.AccountRepository.update({_id: new ObjectId(id)}, updateAccountDto);
+    return this.accountModel.updateOne({_id: new ObjectId(id)}, updateAccountDto);
   }
 
   remove(id: string) {
-    return this.AccountRepository.update({_id: new ObjectId(id)}, {isDeleted: true});
+    return this.accountModel.updateOne({_id: new ObjectId(id)}, {isDeleted: true});
   }
   
   restore(id: string){
-    return this.AccountRepository.update({_id: new ObjectId(id)}, {isDeleted: false});
+    return this.accountModel.updateOne({_id: new ObjectId(id)}, {isDeleted: false});
   }
   
 }

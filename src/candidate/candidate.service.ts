@@ -1,128 +1,124 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
-import { CreateCandidateDto, CreateDocumentsDto as CreateDocumentsDto, CreateInterviewReportDto, CreateQualificationDto } from './dto/create-candidate.dto';
-import { UpdateCandidateDto, UpdateDocumentsDto as UpdateDocumentsDto, UpdateQualificationDto } from './dto/update-candidate.dto';
-
-import { Candidate } from './entities/candidate.entity';
-import { Qualification } from './entities/qualification.entity';
-import { Documents } from './entities/documents.entity'
 import { ObjectId } from 'mongodb';
-import { InterviewReport } from './entities/interviewReport.entity';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+
+import { CreateCandidateDto, UpdateCandidateDto} from './dto/candidate.dto';
+import { CreateDocumentsDto, UpdateDocumentsDto } from './dto/documents.dto';
+import { CreateInterviewReportDto, UpdateInterviewReportDto } from './dto/interviewReport.dto';
+
+import { Candidate } from './schema/candidate.schema';
+import { Documents } from './schema/documents.schema';
+import { InterviewReport } from './schema/interviewReport.schema';
 
 @Injectable()
 export class CandidateService {
   constructor(
-    @InjectRepository(Candidate) private readonly CandidateRepo:Repository<Candidate>,
-    @InjectRepository(Qualification) private readonly QualificationRepo:Repository<Qualification>,
-    @InjectRepository(Documents) private readonly DocumentsRepo:Repository<Documents>,
-    @InjectRepository(InterviewReport) private readonly InterviewReportRepo:Repository<InterviewReport>
-  ){}
+    @InjectModel('Candidate') private readonly CandidateModel:Model<Candidate>){}
   
-  createCandidate(createCandidateDto: CreateCandidateDto) {
-    const candidate = this.CandidateRepo.create(createCandidateDto)
-    return this.CandidateRepo.save(candidate);
+  create(createCandidateDto: CreateCandidateDto) {
+    const candidate = new this.CandidateModel(createCandidateDto)
+    return candidate.save()
   }
 
-  createQualification(createqualificationDto: CreateQualificationDto) {
-    const qualification = this.QualificationRepo.create(createqualificationDto)
-    return this.QualificationRepo.save(qualification);
+  findAll() {
+    return this.CandidateModel.find();
+  }  
+
+  findOneById(id: string) {
+    return this.CandidateModel.findById(id);
   }
 
-  createDocuments(createDocumentsDto: CreateDocumentsDto) {
-    const Documents = this.DocumentsRepo.create(createDocumentsDto)
-    return this.DocumentsRepo.save(Documents);
-  }
-
-  createInterviewReport(interviewReportDto: CreateInterviewReportDto) {
-    const report = this.InterviewReportRepo.create(interviewReportDto)
-    return this.InterviewReportRepo.save(report);
-  }
-
-  findAllCandidate() {
-    return this.CandidateRepo.find();
-  }
-
-  findAllQualification() {
-    return this.QualificationRepo.find();
-  }
-
-  findAllDocuments() {
-    return this.DocumentsRepo.find();
-  }
-
-  findAllInterviewReports() {
-    return this.InterviewReportRepo.find();
-  }
-
-  findCandidateById(id: string) {
-    return this.CandidateRepo.findOneBy({_id: new ObjectId(id)});
-  }
-
-  findQualificationByCandidate(candidateId: string){
-    return this.QualificationRepo.findOneBy({candidate: new ObjectId(candidateId)})
-  }
-
-  findDocumentsByCandidate(candidateId: string){
-    return this.DocumentsRepo.findOneBy({candidate: new ObjectId(candidateId)})
-  }
-
-  findInterviewReportsByCandidate(candidateId: string){
-    return this.InterviewReportRepo.findOneBy({interviewee: new ObjectId(candidateId)})
-  }
-
-  updateCandidate(id: string, updateCandidateDto: UpdateCandidateDto) {
-    return this.CandidateRepo.update(
+  update(id: string, updateCandidateDto: UpdateCandidateDto) {
+    updateCandidateDto.lastUpdate = new Date();
+    return this.CandidateModel.updateOne(
       {_id: new ObjectId(id)},
       updateCandidateDto
     );
   }
 
-  updateQualification(candidateId: string, updateQualificationDto: UpdateQualificationDto) {
-    return this.QualificationRepo.update(
-      {candidate: new ObjectId(candidateId)},
-      updateQualificationDto
+  remove(id: string) {
+    return this.CandidateModel.updateOne(
+      {_id: new ObjectId(id)},
+      {isDeleted: true,
+      lastUpdate: new Date()
+      }
     );
   }
+  
+  restore(id: string){
+    return this.CandidateModel.updateOne(
+      {_id: new ObjectId(id)},
+      {isDeleted: false,
+      lastUpdate: new Date()
+      }
+    );    
+  } 
+  
+}
 
-  updateDocuments(candidateId: string, updateDocumentsDto: UpdateDocumentsDto) {
-    return this.DocumentsRepo.update(
-      {candidate: new ObjectId(candidateId)},
+@Injectable()
+export class DocumentsService {
+  constructor(
+    @InjectModel('Documents') private readonly DocumentsModel:Model<Documents>,
+  ){} 
+
+  create(createDocumentsDto: CreateDocumentsDto) {
+    const documents = new this.DocumentsModel(createDocumentsDto)
+    documents.lastUpdate = new Date();
+    return documents.save();
+  }
+
+  findAll() {
+    return this.DocumentsModel.find();
+  }
+  
+  findOneByOwner(candidateId: string){
+    return this.DocumentsModel.findOne({candidate: candidateId})
+  }
+
+  update(candidateId: string, updateDocumentsDto: UpdateDocumentsDto) {
+    updateDocumentsDto.lastUpdate = new Date();
+    return this.DocumentsModel.updateOne(
+      {candidate: candidateId},
       updateDocumentsDto
     );
   }
 
-  updateInterviewReport(interviewReportId: string, updateInterviewReportDto: CreateInterviewReportDto) {
-    return this.InterviewReportRepo.update(
-      {_id: new ObjectId(interviewReportId)},
+  remove(candidateId: string){
+    return this.DocumentsModel.deleteOne({candidate: candidateId})
+  }
+}
+
+@Injectable()
+export class InterviewReportService {
+  constructor(
+    @InjectModel('InterviewReport') private readonly InterviewReportModel: Model<InterviewReport>){}
+
+  create(interviewReportDto: CreateInterviewReportDto) {
+    const report = new this.InterviewReportModel(interviewReportDto)
+    report.lastUpdate = new Date();
+    return report.save();
+  }
+  findAll() {
+    return this.InterviewReportModel.find();
+  }
+
+  findOneByOwner(candidateId: string){
+    return this.InterviewReportModel.findOne({interviewee: candidateId})
+  }
+
+  update(candidateId: string, updateInterviewReportDto: UpdateInterviewReportDto) {
+    updateInterviewReportDto.lastUpdate = new Date();
+    return this.InterviewReportModel.updateOne(
+      {interviewee: candidateId},
       updateInterviewReportDto
     );
   }
 
-  removeCandidate(id: string) {
-    return this.CandidateRepo.update(
-      {_id: new ObjectId(id)},
-      {isDeleted: true}
-    );
+  remove(interviewReportId: string){
+    return this.InterviewReportModel.deleteOne({_id: new ObjectId(interviewReportId)})
   }
   
-  restoreCandidate(id: string){
-    return this.CandidateRepo.update(
-      {_id: new ObjectId(id)},
-      {isDeleted: false}
-    );    
-  }
-
-  removeQualification(candidateId: string){
-    return this.QualificationRepo.delete({candidate: new ObjectId(candidateId)})
-  }
-
-  removeDocuments(candidateId: string){
-    return this.DocumentsRepo.delete({candidate: new ObjectId(candidateId)})
-  }
-
-  removeInterviewReport(interviewee: string){
-    return this.InterviewReportRepo.delete({interviewee: new ObjectId(interviewee)})
-  }
 }

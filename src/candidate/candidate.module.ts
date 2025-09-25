@@ -1,16 +1,20 @@
 import { Module } from '@nestjs/common';
-import { CandidateService } from './candidate.service';
+import { CandidateService, DocumentsService, InterviewReportService } from './candidate.service';
 import { CandidateController } from './candidate.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Candidate } from './entities/candidate.entity';
-import { Qualification } from './entities/qualification.entity';
-import { Documents } from './entities/documents.entity'
-import { InterviewReport } from './entities/interviewReport.entity';
+
+import { Candidate, CandidateSchema } from './schema/candidate.schema';
+import { Documents, Documentsschema } from './schema/documents.schema'
+import { InterviewReport, InterviewReportSchema } from './schema/interviewReport.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Candidate, Documents, Qualification, InterviewReport])],
+  imports: [MongooseModule.forFeature([
+    { name: Candidate.name, schema: CandidateSchema },
+    { name: Documents.name, schema: Documentsschema },
+    { name: InterviewReport.name, schema: InterviewReportSchema }
+  ])],
   controllers: [CandidateController],
-  providers: [CandidateService],
+  providers: [CandidateService, DocumentsService, InterviewReportService],
 })
 export class CandidateModule {}

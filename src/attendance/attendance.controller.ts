@@ -28,12 +28,12 @@ export class AttendanceController {
     return this.attendanceService.findOneById(id);
   }
 
-  @Patch(':id')
+  @Patch('id/:id')
   update(@Param('id', ParseObjectIdPipe) id: string, @Body() updateAttendanceDto: UpdateAttendanceDto) {
     return this.attendanceService.update(id, updateAttendanceDto);
   }
 
-  @Delete(':id')
+  @Delete('id/:id')
   remove(@Param('id', ParseObjectIdPipe) id: string) {
     return this.attendanceService.remove(id);
   }

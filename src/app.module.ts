@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import { AccountModule } from './account/account.module'
@@ -14,6 +13,7 @@ import { PositionModule } from './position/position.module';
 import { CandidateModule } from './candidate/candidate.module';
 
 import databaseConfig from './config/database.config'
+import { MongooseModule } from '@nestjs/mongoose'
 
 @Module({
   imports: [
@@ -21,17 +21,12 @@ import databaseConfig from './config/database.config'
       load: [databaseConfig],
         isGlobal: true
     }),
-    TypeOrmModule.forRootAsync({
+    MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'mongodb',
-        host: config.get<string>('database.host'),
-        port: config.get<number>('database.port'),
-        username: config.get<string>('database.username'),
-        password: config.get<string>('database.password'),
-        database: config.get<string>('database.database'),
-        autoLoadEntities: true
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('DATABASE_URI'),
+        dbName: configService.get<string>('DATABASE_NAME')
       }),
     }),
     AccountModule, AuthModule, EmployeeModule, DepartmentModule, AttendanceModule, PositionModule, CandidateModule],

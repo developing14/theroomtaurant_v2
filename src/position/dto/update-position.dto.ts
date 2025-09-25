@@ -1,5 +1,5 @@
-import { IsDate, IsOptional, IsString } from "class-validator"
-import { Employee } from "src/employee/entities/employee.entity"
+import { IsDate, IsNumber, IsOptional, IsString } from "class-validator"
+import { Employee } from "src/employee/schema/employee.schema"
 
 export class UpdatePositionDto{
     @IsString()
@@ -8,7 +8,11 @@ export class UpdatePositionDto{
     
     @IsString()
     @IsOptional()
-    jobType:string
+    jobType: string
+    
+    @IsNumber()
+    @IsOptional()
+    salaryLevel:number
     
     @IsDate()
     @IsOptional()
@@ -21,5 +25,10 @@ export class UpdatePositionDto{
     @IsString()
     @IsOptional()
     employee:Employee
+    
+    @IsDate()
+    @IsOptional()
+    lastUpdate: Date
+
 
 }

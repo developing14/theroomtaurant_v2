@@ -23,17 +23,17 @@ export class EmployeeController {
     return this.employeeService.findOneById(id);
   }
 
-  @Patch(':id')
+  @Patch('id/:id')
   update(@Param('id', ParseObjectIdPipe) id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
     return this.employeeService.update(id, updateEmployeeDto);
   }
 
-  @Delete(':id')
+  @Delete('id/:id')
   remove(@Param('id', ParseObjectIdPipe) id: string) {
     return this.employeeService.remove(id);
   }
   
-  @Patch(':id/restore')
+  @Patch('id/:id/restore')
   restore(@Param('id', ParseObjectIdPipe) id: string){
     return this.employeeService.restore(id);
   }

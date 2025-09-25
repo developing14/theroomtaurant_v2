@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { DepartmentService } from './department.service';
 import { DepartmentController } from './department.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Department } from './entities/department.entity';
-import { Position } from '../position/entities/position.entity';
+
+import { Department, DepartmentSchema } from './schema/department.schema';
+import { Position } from '../position/schema/position.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Department, Position])],
+  imports: [MongooseModule.forFeature([{ name: Department.name, schema: DepartmentSchema }])],
   controllers: [DepartmentController],
   providers: [DepartmentService],
 })

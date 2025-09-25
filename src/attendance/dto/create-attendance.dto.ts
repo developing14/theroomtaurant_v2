@@ -1,16 +1,19 @@
-import { IsNotEmpty, IsString } from "class-validator"
+import { IsDate, IsNotEmpty, IsOptional, IsString } from "class-validator"
 
 export class CreateAttendanceDto {
-    @IsString()
+    @IsDate()
     @IsNotEmpty()
     assignedTimeIn: Date
     
-    @IsString()
+    @IsDate()
     @IsNotEmpty()
     assignedTimeOut: Date
 
     @IsString()
     @IsNotEmpty()
     shiftType:string
-    
+
+    @IsDate()
+    @IsOptional()
+    lastUpdate: Date    
 }

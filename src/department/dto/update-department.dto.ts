@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateDepartmentDto } from './create-department.dto';
-import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsOptional, IsString } from 'class-validator';
 
 export class UpdateDepartmentDto extends PartialType(CreateDepartmentDto) {
     @IsString()
@@ -10,4 +10,8 @@ export class UpdateDepartmentDto extends PartialType(CreateDepartmentDto) {
     @IsBoolean()
     @IsOptional()
     isDeleted:boolean
+
+    @IsDate()
+    @IsOptional()
+    lastUpdate: Date
 }

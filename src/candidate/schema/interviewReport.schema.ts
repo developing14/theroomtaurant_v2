@@ -1,8 +1,7 @@
-import { Employee } from "src/employee/entities/employee.entity";
-import { Column, Entity, ManyToOne, ObjectId, ObjectIdColumn } from "typeorm";
-import { Candidate } from "./candidate.entity";
+import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
+import { ObjectId } from "mongodb";
 
-@Entity()
+@Schema()
 export class InterviewReport {
     constructor(interviewReport:InterviewReport){
         if (interviewReport){
@@ -15,27 +14,30 @@ export class InterviewReport {
             this.rating = interviewReport.rating
         }
     }
-    @ObjectIdColumn()
-    _id: ObjectId
-    
-    @Column()
+
+    @Prop()
     location: string
     
-    @Column()
+    @Prop()
     date: Date
     
-    @Column()
+    @Prop()
     content: string
     
-    @Column()
+    @Prop()
     feedback: string
     
-    @Column()
+    @Prop()
     rating: number
+
+    @Prop({ default: new Date() })
+    lastUpdate: Date
     
-    @ManyToOne(() => Employee, (employee)=> employee.interviewReports)
+    @Prop()
     interviewer: ObjectId    
     
-    @ManyToOne(() => Candidate, (candidate)=> candidate.interviewReports)
+    @Prop()
     interviewee: ObjectId
 }
+
+export const InterviewReportSchema = SchemaFactory.createForClass(InterviewReport);

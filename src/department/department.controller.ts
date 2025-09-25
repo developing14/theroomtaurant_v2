@@ -23,17 +23,17 @@ export class DepartmentController {
     return this.departmentService.findOneById(id);
   }
 
-  @Patch(':id')
+  @Patch('id/:id')
   update(@Param('id', ParseObjectIdPipe) id: string, @Body() updateDepartmentDto: UpdateDepartmentDto) {
     return this.departmentService.update(id, updateDepartmentDto);
   }
 
-  @Delete(':id')
+  @Delete('id/:id')
   remove(@Param('id', ParseObjectIdPipe) id: string) {
     return this.departmentService.remove(id);
   }
   
-  @Patch(':id/restore')
+  @Patch('id/:id/restore')
   restore(@Param('id', ParseObjectIdPipe) id: string) {
     return this.departmentService.restore(id);
   }

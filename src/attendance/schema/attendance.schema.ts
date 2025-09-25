@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToOne, ObjectId, ObjectIdColumn } from "typeorm";
-import { Employee } from "src/employee/entities/employee.entity";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { ObjectId } from "mongodb"
 
-@Entity()
+@Schema()
 export class Attendance{
     constructor (payload?:Attendance){
         if(payload){
@@ -11,28 +11,31 @@ export class Attendance{
             this.timeOut = payload.timeOut
             this.shiftType = payload.shiftType
             this.employee = payload.employee
+            this.lastUpdate = new Date()
         }
     }
 
-    @ObjectIdColumn()
-    _id:ObjectId
 
-    @Column()
+    @Prop()
     assignedTimeIn: Date
     
-    @Column()
+    @Prop()
     assignedTimeOut: Date
     
-    @Column()
+    @Prop({required:true})
     shiftType:string
 
-    @Column()
+    @Prop()
     timeIn:Date
 
-    @Column()
+    @Prop()
     timeOut:Date
 
-    @ManyToOne(()=>Employee, (employee)=> employee.attendances)
+    @Prop()
     employee:ObjectId
 
+    @Prop()
+    lastUpdate: Date
 }
+
+export const AttendanceSchema = SchemaFactory.createForClass(Attendance);    

@@ -1,32 +1,37 @@
 import { Injectable } from '@nestjs/common';
+
 import { CreateAttendanceDto } from './dto/create-attendance.dto';
 import { UpdateAttendanceDto } from './dto/update-attendance.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Attendance } from './entities/attendance.entity';
+
 import { ObjectId } from 'mongodb';
-import { Repository } from 'typeorm';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Attendance } from './schema/attendance.schema';
 
 @Injectable()
 export class AttendanceService {
-  constructor(@InjectRepository(Attendance) private readonly AttendanceRepo:Repository<Attendance>){}
+  constructor(@InjectModel('attendance') private readonly attendanceModel:Model<Attendance>){}
+  
   create(createAttendanceDto: CreateAttendanceDto) {
-    const attendance = this.AttendanceRepo.create(createAttendanceDto)
-    return this.AttendanceRepo.save(attendance);
+    const attendance = new this.attendanceModel(createAttendanceDto)
+    attendance.lastUpdate = new Date();
+    return attendance.save();
   }
 
   findAll() {
-    return this.AttendanceRepo.find();
+    return this.attendanceModel.find();
   }
 
   findOneById(id: string) {
-    return this.AttendanceRepo.findOneBy({_id:new ObjectId(id)});
+    return this.attendanceModel.findById(id);
   }
 
   update(id: string, updateAttendanceDto: UpdateAttendanceDto) {
-    return this.AttendanceRepo.update({_id:new ObjectId(id)}, updateAttendanceDto);
+    updateAttendanceDto.lastUpdate = new Date();
+    return this.attendanceModel.updateOne({_id:new ObjectId(id)}, updateAttendanceDto);
   }
 
   remove(id: string) {
-    return this.AttendanceRepo.delete({_id:new ObjectId(id)});
+    return this.attendanceModel.deleteOne({_id:new ObjectId(id)});
   }
 }

@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { AccountController } from './account.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Account } from './entities/account.entity';
+
+import { Account, AccountSchema } from './schema/account.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Account])],
+  imports: [MongooseModule.forFeature([{ name: Account.name, schema: AccountSchema }])],
   exports: [AccountService],
   controllers: [AccountController],
   providers: [AccountService],

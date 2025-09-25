@@ -28,12 +28,12 @@ export class PositionController {
     return this.positionService.findAllByJobType(jobtype)
   }
 
-  @Patch(':id')
+  @Patch('id/:id')
   update(@Param('id', ParseObjectIdPipe) id: string, @Body() updatePositionDto: UpdatePositionDto) {
     return this.positionService.update(id, updatePositionDto);
   }
 
-  @Delete(':id')
+  @Delete('id/:id')
   remove(@Param('id', ParseObjectIdPipe) id: string) {
     return this.positionService.remove(id);
   }

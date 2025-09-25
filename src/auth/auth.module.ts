@@ -9,7 +9,7 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
     AccountModule, 
     JwtModule.register({
       global: true,
-      secret: 'mysecret'
+      secret: process.env.MYSECRET,
     })
   ],
   controllers: [AuthController],

@@ -1,8 +1,7 @@
-import { BadGatewayException, BadRequestException, Controller, Get, Inject, Param, Post, Req, Res, UnauthorizedException, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
-import e, {Request, Response} from 'express'
+import { BadRequestException, Controller, Get, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { Request, Response } from 'express'
 import { AuthService } from './auth.service';
 import { AccountService } from 'src/account/account.service';
-import { AuthGuard } from './auth.guard';
 import { CreateAccountDto } from 'src/account/dto/create-account.dto';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
@@ -34,15 +33,15 @@ export class AuthController {
 
     @Post('signup')
     async signup(@Req() req:Request ){
-
+        
         const newAccount:CreateAccountDto = plainToInstance(CreateAccountDto, req.body)
-
+        
         let error:any = await validate(newAccount)
         if (error.length > 0) throw new BadRequestException('Required field(s) is missing')
         
         error = this.accountService.isExisted(newAccount.loginName)
         error = this.accountService.isExisted(newAccount.email)
-        if (error) return error
+        if (error.length > 0) throw new BadRequestException(error)
 
         return this.accountService.create(newAccount)    
     }

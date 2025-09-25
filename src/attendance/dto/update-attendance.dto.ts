@@ -1,7 +1,7 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { CreateAttendanceDto } from "./create-attendance.dto";
 import { IsDate, IsOptional, IsString } from "class-validator";
-import { Employee } from "src/employee/entities/employee.entity";
+import { Employee } from "src/employee/schema/employee.schema";
 import { ObjectId } from "typeorm";
 
 export class UpdateAttendanceDto extends PartialType(CreateAttendanceDto){
@@ -28,4 +28,8 @@ export class UpdateAttendanceDto extends PartialType(CreateAttendanceDto){
 
     @IsOptional()
     employee:ObjectId
+
+    @IsDate()
+    @IsOptional()
+    lastUpdate: Date
 }

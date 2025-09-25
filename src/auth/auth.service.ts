@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { AccountService } from 'src/account/account.service';
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
