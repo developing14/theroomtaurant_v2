@@ -5,25 +5,17 @@ import { ObjectId } from "mongodb"
 export class Attendance{
     constructor (payload?:Attendance){
         if(payload){
-            this.assignedTimeIn = payload.assignedTimeIn
-            this.assignedTimeOut = payload.assignedTimeOut
             this.timeIn = payload.timeIn
             this.timeOut = payload.timeOut
-            this.shiftType = payload.shiftType
+            this.workType = payload.workType
+            this.shiftLength = payload.shiftLength
             this.employee = payload.employee
             this.lastUpdate = new Date()
         }
     }
-
-
-    @Prop()
-    assignedTimeIn: Date
-    
-    @Prop()
-    assignedTimeOut: Date
     
     @Prop({required:true})
-    shiftType:string
+    workType:string
 
     @Prop()
     timeIn:Date
@@ -31,10 +23,13 @@ export class Attendance{
     @Prop()
     timeOut:Date
 
-    @Prop()
+    @Prop({default: 0})
+    shiftLength: number
+
+    @Prop({required:true})
     employee:ObjectId
 
-    @Prop()
+    @Prop({default: new Date()})
     lastUpdate: Date
 }
 

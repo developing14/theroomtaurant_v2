@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { AttendanceService } from './attendance.service';
-import { CreateAttendanceDto } from './dto/create-attendance.dto';
-import { UpdateAttendanceDto } from './dto/update-attendance.dto';
+import { CreateAttendanceDto, UpdateAttendanceDto } from './dto/attendance.dto';
 import { ParseObjectIdPipe } from '@nestjs/mongoose';
 
 @Controller('attendance')

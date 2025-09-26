@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
-
-import { CreateAttendanceDto } from './dto/create-attendance.dto';
-import { UpdateAttendanceDto } from './dto/update-attendance.dto';
-
-import { ObjectId } from 'mongodb';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+
+import { CreateAttendanceDto, UpdateAttendanceDto } from './dto/attendance.dto';
 import { Attendance } from './schema/attendance.schema';
 
 @Injectable()
@@ -28,10 +25,10 @@ export class AttendanceService {
 
   update(id: string, updateAttendanceDto: UpdateAttendanceDto) {
     updateAttendanceDto.lastUpdate = new Date();
-    return this.attendanceModel.updateOne({_id:new ObjectId(id)}, updateAttendanceDto);
+    return this.attendanceModel.updateOne({_id:id}, updateAttendanceDto);
   }
 
   remove(id: string) {
-    return this.attendanceModel.deleteOne({_id:new ObjectId(id)});
+    return this.attendanceModel.deleteOne({_id:id});
   }
 }
