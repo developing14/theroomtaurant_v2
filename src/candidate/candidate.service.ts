@@ -33,14 +33,14 @@ export class CandidateService {
   update(id: string, updateCandidateDto: UpdateCandidateDto) {
     updateCandidateDto.lastUpdate = new Date();
     return this.CandidateModel.updateOne(
-      {_id: new ObjectId(id)},
+      {_id: id},
       updateCandidateDto
     );
   }
 
   remove(id: string) {
     return this.CandidateModel.updateOne(
-      {_id: new ObjectId(id)},
+      {_id: id},
       {isDeleted: true,
       lastUpdate: new Date()
       }
@@ -49,7 +49,7 @@ export class CandidateService {
   
   restore(id: string){
     return this.CandidateModel.updateOne(
-      {_id: new ObjectId(id)},
+      {_id: id},
       {isDeleted: false,
       lastUpdate: new Date()
       }
@@ -73,21 +73,25 @@ export class DocumentsService {
   findAll() {
     return this.DocumentsModel.find();
   }
+
+  findOneById(id: string){
+    return this.DocumentsModel.findById(id)
+  }
   
   findOneByOwner(candidateId: string){
     return this.DocumentsModel.findOne({candidate: candidateId})
   }
 
-  update(candidateId: string, updateDocumentsDto: UpdateDocumentsDto) {
+  update(id: string, updateDocumentsDto: UpdateDocumentsDto) {
     updateDocumentsDto.lastUpdate = new Date();
     return this.DocumentsModel.updateOne(
-      {candidate: candidateId},
+      {_id: id},
       updateDocumentsDto
     );
   }
 
-  remove(candidateId: string){
-    return this.DocumentsModel.deleteOne({candidate: candidateId})
+  remove(id: string){
+    return this.DocumentsModel.deleteOne({_id: id})
   }
 }
 
@@ -104,21 +108,25 @@ export class InterviewReportService {
   findAll() {
     return this.InterviewReportModel.find();
   }
+  
+  findOneById(id: string){
+    return this.InterviewReportModel.findById(id)
+  }
 
   findOneByOwner(candidateId: string){
     return this.InterviewReportModel.findOne({interviewee: candidateId})
   }
 
-  update(candidateId: string, updateInterviewReportDto: UpdateInterviewReportDto) {
+  update(id: string, updateInterviewReportDto: UpdateInterviewReportDto) {
     updateInterviewReportDto.lastUpdate = new Date();
     return this.InterviewReportModel.updateOne(
-      {interviewee: candidateId},
+      {_id: id},
       updateInterviewReportDto
     );
   }
 
-  remove(interviewReportId: string){
-    return this.InterviewReportModel.deleteOne({_id: new ObjectId(interviewReportId)})
+  remove(id: string){
+    return this.InterviewReportModel.deleteOne({_id: id})
   }
   
 }

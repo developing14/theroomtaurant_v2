@@ -38,6 +38,16 @@ export class CandidateController {
     return candidates
   }
 
+  @Get('documents')
+  async findAllDocuments(){
+    return this.documentsService.findAll()
+  }
+
+  @Get('interviewReport')
+  async findAllInterviewReport(){
+    return this.interviewReportService.findAll()
+  }
+
   @Get('id/:id')
   async findOne(@Param('id') id: string) {
     const candidate = await this.candidateService.findOneById(id);
@@ -76,7 +86,7 @@ export class CandidateController {
     return this.documentsService.remove(id);
   }
 
-  @Delete('id/:id')
+  @Delete('interviewReport/id/:id')
   removeInterviewReport(@Param('id') id: string) {
     return this.interviewReportService.remove(id);
   }
