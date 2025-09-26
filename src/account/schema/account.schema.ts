@@ -8,6 +8,7 @@ export class Account {
             this.loginName = account.loginName
             this.email = account.email
             this.password = account.password
+            this.isDeleted = account.isDeleted
             }
 
     }

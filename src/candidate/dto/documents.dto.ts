@@ -18,7 +18,7 @@ export class CreateDocumentsDto {
     HealthChecking: string    
     
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     HoKhau: string
 
     @IsDate()
@@ -35,28 +35,28 @@ export class CreateDocumentsDto {
 
 export class UpdateDocumentsDto extends PartialType(CreateDocumentsDto) {
         
-        @IsOptional()
-        candidate: ObjectId
+    @IsOptional()
+    candidate: ObjectId
     
-        @IsString()
-        @IsOptional()
-        cv: string    
-        
-        @IsString()
-        @IsOptional()
-        socialInsurance: string    
-        
-        @IsString()
-        @IsOptional()
-        HealthCare: string    
-        
-        @IsString()
-        @IsOptional()
-        HoKhau: string
-
-        @IsDate()
-        @IsOptional()
-        lastUpdate: Date
+    @IsString()
+    @IsOptional()
+    cv: string    
+    
+    @IsString()
+    @IsOptional()
+    socialInsurance: string    
+    
+    @IsString()
+    @IsOptional()
+    HealthCare: string    
+    
+    @IsString()
+    @IsOptional()
+    HoKhau: string
+    
+    @IsDate()
+    @IsOptional()
+    lastUpdate: Date
 }
 
 

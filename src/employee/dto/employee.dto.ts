@@ -1,4 +1,4 @@
-import { IsDate, IsMongoId, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsDate, IsMongoId, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { PartialType } from '@nestjs/mapped-types';
 import { ObjectId } from "mongodb";
 
@@ -26,6 +26,14 @@ export class CreateEmployeeDto {
     @IsMongoId()
     @IsOptional()
     account:ObjectId
+
+    @IsBoolean()
+    @IsOptional()
+    isDeleted: boolean
+
+    @IsDate()
+    @IsOptional()
+    leaveDate: Date
 
     @IsDate()
     @IsOptional()
@@ -57,6 +65,14 @@ export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {
     @IsMongoId()
     @IsOptional()
     account:ObjectId
+    
+    @IsBoolean()
+    @IsOptional()
+    isDeleted: boolean
+
+    @IsDate()
+    @IsOptional()
+    leaveDate: Date
     
     @IsDate()
     @IsOptional()

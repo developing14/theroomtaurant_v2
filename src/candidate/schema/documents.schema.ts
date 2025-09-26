@@ -7,6 +7,8 @@ export class Documents{
         if (Documents){
             this.cv = Documents.cv
             this.HealthChecking = Documents.HealthChecking
+            this.HoKhau = Documents.HoKhau
+            this.socialInsurance = Documents.socialInsurance
             this.appliedDay = this.appliedDay
             this.candidate = Documents.candidate
         }
@@ -17,7 +19,13 @@ export class Documents{
     cv: string
 
     @Prop({required: true})
+    socialInsurance: string
+
+    @Prop({required: true})
     HealthChecking: string
+
+    @Prop()
+    HoKhau: string
 
     @Prop({required: true, default: new Date()})
     appliedDay: Date

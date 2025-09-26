@@ -1,6 +1,5 @@
 import { Injectable} from '@nestjs/common';
-import { CreateAccountDto } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
+import { CreateAccountDto, UpdateAccountDto } from './dto/account.dto';
 
 import { ObjectId } from 'mongodb'
 

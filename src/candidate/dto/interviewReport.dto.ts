@@ -24,11 +24,11 @@ export class CreateInterviewReportDto {
     content: string
 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     feedback: string
 
     @IsNumber()
-    @IsNotEmpty()
+    @IsOptional()
     rating: number
 
     @IsDate()

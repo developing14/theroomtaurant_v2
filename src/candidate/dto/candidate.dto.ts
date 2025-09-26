@@ -1,5 +1,5 @@
 import { PartialType } from "@nestjs/mapped-types";
-import { IsDate, IsMongoId, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsDate, IsMongoId, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateCandidateDto {
     @IsString()
@@ -26,6 +26,10 @@ export class CreateCandidateDto {
     @IsNotEmpty()
     identityNumber: string
 
+    @IsBoolean()
+    @IsOptional()
+    isDeleted: boolean
+
     @IsDate()
     @IsOptional()
     lastUpdate: Date
@@ -51,6 +55,10 @@ export class UpdateCandidateDto extends PartialType(CreateCandidateDto) {
     @IsString()
     @IsOptional()
     identityNumber: string
+
+    @IsBoolean()
+    @IsOptional()
+    isDeleted: boolean
 
     @IsDate()
     @IsOptional()

@@ -11,6 +11,8 @@ export class Employee {
             this.email= payload.email
             this.address= payload.address
             this.account= payload.account
+            this.isDeleted= payload.isDeleted
+            this.leaveDate= payload.leaveDate
         }   
     }
         @Prop()

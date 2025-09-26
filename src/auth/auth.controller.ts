@@ -2,7 +2,7 @@ import { BadRequestException, Controller, Get, Post, Req, Res, UnauthorizedExcep
 import { Request, Response } from 'express'
 import { AuthService } from './auth.service';
 import { AccountService } from 'src/account/account.service';
-import { CreateAccountDto } from 'src/account/dto/create-account.dto';
+import { CreateAccountDto } from 'src/account/dto/account.dto';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 

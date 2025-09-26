@@ -1,4 +1,4 @@
-import { IsDate, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsDate, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { ObjectId } from "mongodb";
 
 export class CreatePositionDto {
@@ -17,6 +17,10 @@ export class CreatePositionDto {
     @IsMongoId()
     @IsNotEmpty()
     department: ObjectId
+
+    @IsBoolean()
+    @IsOptional()
+    isDelete: boolean
 
     @IsDate()
     @IsOptional()
@@ -41,10 +45,13 @@ export class UpdatePositionDto{
     @IsMongoId()
     @IsOptional()
     department: ObjectId
-    
+
+    @IsBoolean()
+    @IsOptional()
+    isDelete: boolean
+
     @IsDate()
     @IsOptional()
     lastUpdate: Date
-
 
 }

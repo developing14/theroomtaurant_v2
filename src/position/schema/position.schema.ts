@@ -9,6 +9,8 @@ export class Position {
             this.name = payload.name
             this.jobType = payload.jobType
             this.salaryLevel = payload.salaryLevel
+            this.department = payload.department
+            this.isDelete = payload.isDelete
             this.lastUpdate = new Date()
         }
     }

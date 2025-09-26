@@ -1,11 +1,11 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose"
-import { ObjectId } from "mongodb"
 
 @Schema()
 export class Department {
     constructor (payload?:Department){
         if (payload){
             this.name = payload.name
+            this.isDeleted = payload.isDeleted
         }
     }
 

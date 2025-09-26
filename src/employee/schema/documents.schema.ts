@@ -12,7 +12,6 @@ export class Documents{
             this.employee = Documents.employee
             this.contract= Documents.contract
             this.insuranceCode= Documents.insuranceCode
-            this.leaveTime= Documents.leaveTime
         }
     }
 
@@ -34,9 +33,6 @@ export class Documents{
 
     @Prop({required: true})
     contract: string
-        
-    @Prop()
-    leaveTime: Date
 
     @Prop({default: new Date()})
     lastUpdate: Date

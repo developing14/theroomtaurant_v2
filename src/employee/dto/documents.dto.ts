@@ -26,10 +26,6 @@ export class CreateDocumentsDto {
     @IsString()
     @IsNotEmpty()
     contract: string
-
-    @IsDate()
-    @IsOptional()
-    leaveTime: Date
     
     @IsMongoId()
     @IsNotEmpty()
@@ -65,10 +61,6 @@ export class UpdateDocumentsDto extends PartialType(CreateDocumentsDto) {
     @IsString()
     @IsOptional()
     contract: string
-
-    @IsDate()
-    @IsOptional()
-    leaveTime: Date
     
     @IsMongoId()
     @IsOptional()

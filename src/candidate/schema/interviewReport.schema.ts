@@ -15,13 +15,13 @@ export class InterviewReport {
         }
     }
 
-    @Prop()
+    @Prop({required: true})
     location: string
     
-    @Prop()
+    @Prop({required: true})
     date: Date
     
-    @Prop()
+    @Prop({required: true})
     content: string
     
     @Prop()
