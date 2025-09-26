@@ -1,4 +1,5 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
+import { ObjectId } from "mongodb";
 
 @Schema()
 export class Position {
@@ -20,6 +21,12 @@ export class Position {
 
     @Prop({required:true})
     salaryLevel:number
+
+    @Prop({required: true})
+    department: ObjectId
+
+    @Prop({default: false})
+    isDelete: boolean
 
     @Prop({default: new Date()})
     lastUpdate: Date

@@ -15,14 +15,17 @@ export class Assignment {
     @Prop({default: new Date()})
     startDate: Date 
 
-    @Prop()
+    @Prop({default: null})
     endDate: Date
 
-    @Prop()
+    @Prop({required: true})
     position: ObjectId 
 
     @Prop()
     employee: ObjectId
+
+    @Prop({default: new Date()})
+    lastUpdate: Date
 }
 
 export const AssignmentSchema = SchemaFactory.createForClass(Assignment);

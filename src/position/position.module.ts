@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PositionService } from './position.service';
+import { AssignmentService, PositionService } from './position.service';
 import { PositionController } from './position.controller';
 
 import { Position, PositionSchema } from './schema/position.schema';
@@ -12,6 +12,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     { name: Assignment.name, schema: AssignmentSchema }
   ] )],
   controllers: [PositionController],
-  providers: [PositionService],
+  providers: [PositionService, AssignmentService],
 })
 export class PositionModule {}
