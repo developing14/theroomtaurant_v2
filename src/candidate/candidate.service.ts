@@ -78,7 +78,7 @@ export class DocumentsService {
     return this.DocumentsModel.findById(id)
   }
   
-  findOneByOwner(candidateId: string){
+  findOneByCandidate(candidateId: string){
     return this.DocumentsModel.findOne({candidate: candidateId})
   }
 
@@ -113,7 +113,7 @@ export class InterviewReportService {
     return this.InterviewReportModel.findById(id)
   }
 
-  findOneByOwner(candidateId: string){
+  findOneByCandidate(candidateId: string){
     return this.InterviewReportModel.findOne({interviewee: candidateId})
   }
 

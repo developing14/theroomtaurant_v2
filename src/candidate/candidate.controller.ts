@@ -14,7 +14,7 @@ export class CandidateController {
 
   @Get('test/id/:id')
   test(@Param('id') id: string) {
-    return this.interviewReportService.findOneByOwner(id)
+    return this.interviewReportService.findOneByCandidate(id)
   }
 
   @Post()
@@ -51,8 +51,8 @@ export class CandidateController {
   @Get('id/:id')
   async findOne(@Param('id') id: string) {
     const candidate = await this.candidateService.findOneById(id);
-    const Documents = await this.documentsService.findOneByOwner(id);
-    const interviewReport = await this.interviewReportService.findOneByOwner(id);
+    const Documents = await this.documentsService.findOneByCandidate(id);
+    const interviewReport = await this.interviewReportService.findOneByCandidate(id);
     return {Documents, candidate, interviewReport}
   }
 

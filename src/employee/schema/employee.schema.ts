@@ -10,10 +10,6 @@ export class Employee {
             this.phone = payload.phone
             this.email= payload.email
             this.address= payload.address
-            this.taxCode= payload.taxCode
-            this.insuranceCode= payload.insuranceCode
-            this.contract= payload.contract
-            this.leaveTime= payload.leaveTime
             this.account= payload.account
         }   
     }
@@ -33,19 +29,13 @@ export class Employee {
         address:string
 
         @Prop()
-        taxCode: string
-
-        @Prop()
-        insuranceCode: string
-
-        @Prop()
-        contract: string
-        
-        @Prop()
-        leaveTime: Date
-
-        @Prop()
         account:ObjectId
+
+        @Prop({default: false})
+        isDeleted: boolean
+
+        @Prop({default: null})
+        leaveDate: Date
 
         @Prop({default: new Date()})
         lastUpdate: Date
