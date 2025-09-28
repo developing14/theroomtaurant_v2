@@ -20,7 +20,7 @@ export class CreatePositionDto {
 
     @IsBoolean()
     @IsOptional()
-    isDelete: boolean
+    isDeleted: boolean
 
     @IsDate()
     @IsOptional()
@@ -48,7 +48,7 @@ export class UpdatePositionDto{
 
     @IsBoolean()
     @IsOptional()
-    isDelete: boolean
+    isDeleted: boolean
 
     @IsDate()
     @IsOptional()

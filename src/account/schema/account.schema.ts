@@ -8,7 +8,7 @@ export class Account {
             this.loginName = account.loginName
             this.email = account.email
             this.password = account.password
-            this.isDeleted = account.isDeleted
+            this.isDeletedd = account.isDeletedd
             }
 
     }
@@ -23,7 +23,7 @@ export class Account {
     password: string
 
     @Prop({default: false})
-    isDeleted: boolean
+    isDeletedd: boolean
 
     @Prop({default: Date.now})
     lastUpdate: Date

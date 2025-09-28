@@ -16,7 +16,7 @@ export class CreateAccountDto {
 
     @IsBoolean()
     @IsOptional()
-    isDeleted: boolean
+    isDeletedd: boolean
 
     @IsDate()
     @IsOptional()

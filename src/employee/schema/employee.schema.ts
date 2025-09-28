@@ -11,7 +11,7 @@ export class Employee {
             this.email= payload.email
             this.address= payload.address
             this.account= payload.account
-            this.isDeleted= payload.isDeleted
+            this.isDeletedd= payload.isDeletedd
             this.leaveDate= payload.leaveDate
         }   
     }
@@ -34,7 +34,7 @@ export class Employee {
         account:ObjectId
 
         @Prop({default: false})
-        isDeleted: boolean
+        isDeletedd: boolean
 
         @Prop({default: null})
         leaveDate: Date

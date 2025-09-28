@@ -41,7 +41,7 @@ export class CandidateService {
   remove(id: string) {
     return this.CandidateModel.updateOne(
       {_id: id},
-      {isDeleted: true,
+      {isDeletedd: true,
       lastUpdate: new Date()
       }
     );
@@ -50,7 +50,7 @@ export class CandidateService {
   restore(id: string){
     return this.CandidateModel.updateOne(
       {_id: id},
-      {isDeleted: false,
+      {isDeletedd: false,
       lastUpdate: new Date()
       }
     );    

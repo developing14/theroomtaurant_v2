@@ -48,11 +48,11 @@ export class AccountService {
   }
 
   remove(id: string) {
-    return this.accountModel.updateOne({_id: new ObjectId(id)}, {isDeleted: true});
+    return this.accountModel.updateOne({_id: new ObjectId(id)}, {isDeletedd: true});
   }
   
   restore(id: string){
-    return this.accountModel.updateOne({_id: new ObjectId(id)}, {isDeleted: false});
+    return this.accountModel.updateOne({_id: new ObjectId(id)}, {isDeletedd: false});
   }
   
 }

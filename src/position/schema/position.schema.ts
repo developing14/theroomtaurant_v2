@@ -10,7 +10,7 @@ export class Position {
             this.jobType = payload.jobType
             this.salaryLevel = payload.salaryLevel
             this.department = payload.department
-            this.isDelete = payload.isDelete
+            this.isDeleted = payload.isDeleted
             this.lastUpdate = new Date()
         }
     }
@@ -28,7 +28,7 @@ export class Position {
     department: ObjectId
 
     @Prop({default: false})
-    isDelete: boolean
+    isDeleted: boolean
 
     @Prop({default: new Date()})
     lastUpdate: Date

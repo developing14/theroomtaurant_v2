@@ -21,9 +21,9 @@ export class AuthService {
         const isMatched = bcrypt.compareSync(password, target.password)
         if (!isMatched) throw new UnauthorizedException('Wrong password')
 
-        const isDeleted = target.isDeleted
+        const isDeletedd = target.isDeletedd
         
-        if (isDeleted) throw new ForbiddenException('Account is not activated')
+        if (isDeletedd) throw new ForbiddenException('Account is not activated')
 
         const payload = { sub: target._id, loginName: target.loginName };
 

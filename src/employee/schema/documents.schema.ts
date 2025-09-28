@@ -12,6 +12,7 @@ export class Documents{
             this.employee = Documents.employee
             this.contract= Documents.contract
             this.insuranceCode= Documents.insuranceCode
+            this.seniority = Documents.seniority
         }
     }
 
@@ -33,6 +34,9 @@ export class Documents{
 
     @Prop({required: true})
     contract: string
+
+    @Prop({default: 0})
+    seniority:number
 
     @Prop({default: new Date()})
     lastUpdate: Date

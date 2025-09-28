@@ -8,7 +8,7 @@ export class CreateDepartmentDto {
 
     @IsBoolean()
     @IsOptional()
-    isDeleted:boolean
+    isDeletedd:boolean
 
     @IsDate()
     @IsOptional()
@@ -22,7 +22,7 @@ export class UpdateDepartmentDto extends PartialType(CreateDepartmentDto) {
 
     @IsBoolean()
     @IsOptional()
-    isDeleted:boolean
+    isDeletedd:boolean
 
     @IsDate()
     @IsOptional()

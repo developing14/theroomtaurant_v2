@@ -29,7 +29,7 @@ export class CreateEmployeeDto {
 
     @IsBoolean()
     @IsOptional()
-    isDeleted: boolean
+    isDeletedd: boolean
 
     @IsDate()
     @IsOptional()
@@ -68,7 +68,7 @@ export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {
     
     @IsBoolean()
     @IsOptional()
-    isDeleted: boolean
+    isDeletedd: boolean
 
     @IsDate()
     @IsOptional()

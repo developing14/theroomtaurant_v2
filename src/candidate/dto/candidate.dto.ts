@@ -28,7 +28,7 @@ export class CreateCandidateDto {
 
     @IsBoolean()
     @IsOptional()
-    isDeleted: boolean
+    isDeletedd: boolean
 
     @IsDate()
     @IsOptional()
@@ -58,7 +58,7 @@ export class UpdateCandidateDto extends PartialType(CreateCandidateDto) {
 
     @IsBoolean()
     @IsOptional()
-    isDeleted: boolean
+    isDeletedd: boolean
 
     @IsDate()
     @IsOptional()

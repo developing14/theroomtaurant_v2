@@ -28,10 +28,10 @@ export class DepartmentService {
   }
 
   remove(id: string) {
-    return this.DepartmentModel.updateOne({_id:id}, {isDeleted: true, lastUpdate: new Date()});
+    return this.DepartmentModel.updateOne({_id:id}, {isDeletedd: true, lastUpdate: new Date()});
   }
 
   restore(id: string) {
-    return this.DepartmentModel.updateOne({_id:id}, {isDeleted: false, lastUpdate: new Date()});
+    return this.DepartmentModel.updateOne({_id:id}, {isDeletedd: false, lastUpdate: new Date()});
   }
 }

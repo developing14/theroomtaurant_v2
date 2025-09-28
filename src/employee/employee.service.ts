@@ -32,7 +32,7 @@ export class EmployeeService {
   remove(id: string) {
     return this.employeeModel.updateOne(
       {_id: new ObjectId(id)}, 
-      { isDeleted: true,
+      { isDeletedd: true,
         leaveDate: new Date(),
         lastUpdate: new Date()
       });
@@ -41,7 +41,7 @@ export class EmployeeService {
     restore(id: string) {
       return this.employeeModel.updateOne(
         {_id: id}, 
-        { isDeleted: false,
+        { isDeletedd: false,
           leaveDate: null,
           lastUpdate: new Date()          
       });

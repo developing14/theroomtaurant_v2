@@ -37,7 +37,7 @@ export class PositionService {
   remove(id: string) {
     return this.PositionModel.updateOne(
       {_id: id}, 
-      { isDelete: true,
+      { isDeleted: true,
         lastUpdate: new Date() 
       }
     )
@@ -46,7 +46,7 @@ export class PositionService {
   restore(id: string) {
     return this.PositionModel.updateOne(
       {_id: id}, 
-      { isDelete: false,
+      { isDeleted: false,
         lastUpdate: new Date() 
       }
     )

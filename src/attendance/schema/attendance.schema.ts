@@ -9,8 +9,8 @@ export class Attendance{
             this.timeOut = payload.timeOut
             this.workType = payload.workType
             this.shiftLength = payload.shiftLength
+            this.payrollId = payload.payrollId
             this.employee = payload.employee
-            this.lastUpdate = new Date()
         }
     }
     
@@ -28,6 +28,9 @@ export class Attendance{
 
     @Prop({required:true})
     employee:ObjectId
+
+    @Prop({default: null})
+    payrollId: ObjectId
 
     @Prop({default: new Date()})
     lastUpdate: Date

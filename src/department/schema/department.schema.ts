@@ -5,7 +5,7 @@ export class Department {
     constructor (payload?:Department){
         if (payload){
             this.name = payload.name
-            this.isDeleted = payload.isDeleted
+            this.isDeletedd = payload.isDeletedd
         }
     }
 
@@ -14,7 +14,7 @@ export class Department {
     name:string
 
     @Prop({default: false})
-    isDeleted: boolean
+    isDeletedd: boolean
 
     @Prop({default: new Date()})
     lastUpdate: Date

@@ -11,7 +11,7 @@ export class Candidate {
             this.email = candidate.email
             this.address = candidate.address
             this.identityNumber = candidate.identityNumber
-            this.isDeleted = false
+            this.isDeletedd = false
         }
     }
 
@@ -35,7 +35,7 @@ export class Candidate {
     identityNumber: string
 
     @Prop({default: false})
-    isDeleted: boolean
+    isDeletedd: boolean
 
     @Prop({default: new Date()})
     lastUpdate: Date
