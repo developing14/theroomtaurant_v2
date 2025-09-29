@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CandidateService, DocumentsService, InterviewReportService } from './candidate.service';
-import { CandidateController } from './candidate.controller';
+import { CandidateController, CandidateDocumentsController, InterviewReportController } from './candidate.controller';
 
 
 import { Candidate, CandidateSchema } from './schema/candidate.schema';
@@ -14,7 +14,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     { name: Documents.name, schema: Documentsschema },
     { name: InterviewReport.name, schema: InterviewReportSchema }
   ])],
-  controllers: [CandidateController],
+  controllers: [CandidateController, CandidateDocumentsController, InterviewReportController],
   providers: [CandidateService, DocumentsService, InterviewReportService],
 })
 export class CandidateModule {}

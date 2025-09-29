@@ -61,6 +61,10 @@ export class PayrollAdjustmentService {
     return this.PayrollAdjustmentModel.find();
   }
 
+  findOneByPayrollId(id:string){
+    return this.PayrollAdjustmentModel.findOne({payrollId: id})
+  }
+
   findOneById(id: string) {
     return this.PayrollAdjustmentModel.findById(id);
   }

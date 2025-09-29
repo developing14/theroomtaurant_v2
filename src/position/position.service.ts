@@ -70,6 +70,10 @@ export class AssignmentService {
     return this.AssignmentModel.findById(id);
   }
 
+  findOneByPositionId(id: string){
+    return this.AssignmentModel.findOne({position: id})
+  }
+
   update(id: string, updateAssignmentDto: UpdateAssignmentDto) {
     updateAssignmentDto.lastUpdate = new Date()
     return this.AssignmentModel.updateOne({_id: id}, updateAssignmentDto);
