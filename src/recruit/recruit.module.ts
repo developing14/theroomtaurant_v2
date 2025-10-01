@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CandidateService, DocumentsService, InterviewReportService, OnboardingService } from './candidate.service';
-import { CandidateController, CandidateDocumentsController, InterviewReportController, OnboardingController } from './candidate.controller';
+import { CandidateService, DocumentsService, InterviewReportService, OnboardingService } from './recruit.service';
+import { CandidateController, CandidateDocumentsController, InterviewReportController, OnboardingController } from './recruit.controller';
 
 
 import { Candidate, CandidateSchema } from './schema/candidate.schema';
@@ -19,4 +19,4 @@ import { Onboarding, OnboardingSchema } from './schema/onboarding.schema';
   controllers: [CandidateController, CandidateDocumentsController, InterviewReportController, OnboardingController],
   providers: [CandidateService, DocumentsService, InterviewReportService, OnboardingService],
 })
-export class CandidateModule {}
+export class RecruitModule {}

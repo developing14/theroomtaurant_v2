@@ -11,7 +11,7 @@ import { EmployeeModule } from './employee/employee.module';
 import { DepartmentModule } from './department/department.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { PositionModule } from './position/position.module';
-import { CandidateModule } from './candidate/candidate.module';
+import { RecruitModule } from './recruit/recruit.module';
 import { PayrollModule } from './payroll/payroll.module';
 
 
@@ -28,7 +28,7 @@ import { PayrollModule } from './payroll/payroll.module';
         dbName: configService.get<string>('DATABASE_NAME')
       }),
     }),
-    AccountModule, AuthModule, EmployeeModule, DepartmentModule, AttendanceModule, PositionModule, CandidateModule, PayrollModule],
+    AccountModule, AuthModule, EmployeeModule, DepartmentModule, AttendanceModule, PositionModule, RecruitModule, PayrollModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -5,7 +5,7 @@ import { CreateCandidateDto, UpdateCandidateDto } from './dto/candidate.dto';
 import { CreateDocumentsDto, UpdateDocumentsDto } from './dto/documents.dto';
 import { CreateInterviewReportDto, UpdateInterviewReportDto } from './dto/interviewReport.dto';
 
-import { CandidateService, InterviewReportService, DocumentsService, OnboardingService } from './candidate.service';
+import { CandidateService, InterviewReportService, DocumentsService, OnboardingService } from './recruit.service';
 import { CreateOnboardingDto, UpdateOnboardingDto } from './dto/onboarding.dto';
 
 @Controller('candidate')
