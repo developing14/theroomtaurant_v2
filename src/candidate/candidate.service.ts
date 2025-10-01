@@ -11,11 +11,12 @@ import { CreateInterviewReportDto, UpdateInterviewReportDto } from './dto/interv
 import { Candidate } from './schema/candidate.schema';
 import { Documents } from './schema/documents.schema';
 import { InterviewReport } from './schema/interviewReport.schema';
+import { Onboarding } from './schema/onboarding.schema';
+import { CreateOnboardingDto, UpdateOnboardingDto } from './dto/onboarding.dto';
 
 @Injectable()
 export class CandidateService {
-  constructor(
-    @InjectModel('Candidate') private readonly CandidateModel:Model<Candidate>){}
+  constructor(@InjectModel('Candidate') private readonly CandidateModel:Model<Candidate>){}
   
   create(createCandidateDto: CreateCandidateDto) {
     const candidate = new this.CandidateModel(createCandidateDto)
@@ -113,7 +114,7 @@ export class InterviewReportService {
     return this.InterviewReportModel.findById(id)
   }
 
-  findOneByCandidate(candidateId: string){
+  findOneByCandidateId(candidateId: string){
     return this.InterviewReportModel.findOne({interviewee: candidateId})
   }
 
@@ -129,4 +130,42 @@ export class InterviewReportService {
     return this.InterviewReportModel.deleteOne({_id: id})
   }
   
+}
+
+@Injectable()
+export class OnboardingService {
+  constructor(@InjectModel('Onboarding') private readonly onboardingModel:Model<Onboarding>){}
+
+  create(createOnboardingDto:CreateOnboardingDto){
+    const Onboarding = new this.onboardingModel(createOnboardingDto)
+    return Onboarding.save()
+  }
+
+  update(id:string, updateOnboardingDto:UpdateOnboardingDto){
+    updateOnboardingDto.lastUpdate = new Date()
+    return this.onboardingModel.updateOne(
+      {_id: id},
+      updateOnboardingDto
+    )
+  }
+
+  findAll(){
+    return this.onboardingModel.find()
+  }
+
+  findOneById(id:string){
+    return this.onboardingModel.findById(id)
+  }
+
+  findOneByCandidateId(id:string){
+    return this.onboardingModel.findOne({trainee: id})
+  }
+
+  findOnebyTrainerId(id: string){
+    return this.onboardingModel.findOne({trainer: id})
+  }
+
+  remove(id: string){
+    return this.onboardingModel.deleteOne({_id: id})
+  }
 }

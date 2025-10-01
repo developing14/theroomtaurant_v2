@@ -1,16 +1,20 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete} from '@nestjs/common';
-import { CandidateService, InterviewReportService, DocumentsService } from './candidate.service';
+import { ParseObjectIdPipe } from '@nestjs/mongoose';
+
 import { CreateCandidateDto, UpdateCandidateDto } from './dto/candidate.dto';
 import { CreateDocumentsDto, UpdateDocumentsDto } from './dto/documents.dto';
 import { CreateInterviewReportDto, UpdateInterviewReportDto } from './dto/interviewReport.dto';
-import { ParseObjectIdPipe } from '@nestjs/mongoose';
+
+import { CandidateService, InterviewReportService, DocumentsService, OnboardingService } from './candidate.service';
+import { CreateOnboardingDto, UpdateOnboardingDto } from './dto/onboarding.dto';
 
 @Controller('candidate')
 export class CandidateController {
   constructor(
     private readonly candidateService: CandidateService,
     private readonly documentsService: DocumentsService,
-    private readonly interviewReportService: InterviewReportService
+    private readonly interviewReportService: InterviewReportService,
+    private readonly onboardingService:OnboardingService,
   ) {}
 
   @Post()
@@ -28,8 +32,9 @@ export class CandidateController {
   async findOne(@Param('id') id: string) {
     const candidate = await this.candidateService.findOneById(id);
     const Documents = await this.documentsService.findOneByCandidate(id);
-    const interviewReport = await this.interviewReportService.findOneByCandidate(id);
-    return {Documents, candidate, interviewReport}
+    const interviewReport = await this.interviewReportService.findOneByCandidateId(id);
+    const onboarding = await this.onboardingService.findOneByCandidateId(id)
+    return {Documents, candidate, interviewReport, onboarding}
   }
   
   @Patch('id/:id')
@@ -47,9 +52,7 @@ export class CandidateController {
   @Patch('restore/id/:id')
   restore(@Param('id') id: string) {
     return this.candidateService.restore(id);
-  }
-  
-  
+  }  
   
 }
 
@@ -113,3 +116,33 @@ export class InterviewReportController {
   }
 }
 
+
+@Controller('Onboarding')
+export class OnboardingController {
+  constructor(private readonly onboardingService: OnboardingService){}
+
+  @Post()
+  create(createOnboardingDto:CreateOnboardingDto){
+    return this.onboardingService.create(createOnboardingDto)
+  }
+
+  @Get()
+  findAll(){
+    return this.onboardingService.findAll()
+  }
+  
+  @Get('id/:id')
+  findOneById(@Param('id', ParseObjectIdPipe) id:string){
+    return this.onboardingService.findOneById(id)
+  }
+
+  @Patch('id/:id')
+  update(@Param('id', ParseObjectIdPipe) id:string, updateOnboardingDto:UpdateOnboardingDto){
+    return this.onboardingService.update(id, updateOnboardingDto)
+  }
+
+  @Delete('id/:id')
+  remove(@Param('id', ParseObjectIdPipe) id:string){
+    return this.onboardingService.remove(id)
+  }
+}
