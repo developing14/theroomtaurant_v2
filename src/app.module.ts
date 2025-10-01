@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+import { MongooseModule } from '@nestjs/mongoose'
 
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
@@ -11,15 +12,12 @@ import { DepartmentModule } from './department/department.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { PositionModule } from './position/position.module';
 import { CandidateModule } from './candidate/candidate.module';
-
-import databaseConfig from './config/database.config'
-import { MongooseModule } from '@nestjs/mongoose'
 import { PayrollModule } from './payroll/payroll.module';
+
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [databaseConfig],
         isGlobal: true
     }),
     MongooseModule.forRootAsync({

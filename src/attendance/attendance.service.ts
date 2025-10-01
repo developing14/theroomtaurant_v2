@@ -7,7 +7,7 @@ import { Attendance } from './schema/attendance.schema';
 
 @Injectable()
 export class AttendanceService {
-  constructor(@InjectModel('attendance') private readonly attendanceModel:Model<Attendance>){}
+  constructor(@InjectModel('Attendance') private readonly attendanceModel:Model<Attendance>){}
   
   create(createAttendanceDto: CreateAttendanceDto) {
     const attendance = new this.attendanceModel(createAttendanceDto)
