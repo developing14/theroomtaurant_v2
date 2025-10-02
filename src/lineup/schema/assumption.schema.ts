@@ -2,8 +2,8 @@ import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
 import { ObjectId } from "mongodb";
 
 @Schema()
-export class Assignment {
-    constructor(payload?:Assignment){
+export class Assumption {
+    constructor(payload?:Assumption){
         if(payload){
             this.startDate = payload.startDate
             this.endDate = payload.endDate
@@ -28,4 +28,4 @@ export class Assignment {
     lastUpdate: Date
 }
 
-export const AssignmentSchema = SchemaFactory.createForClass(Assignment);
+export const AssumptionSchema = SchemaFactory.createForClass(Assumption);

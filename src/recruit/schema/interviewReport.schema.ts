@@ -7,6 +7,7 @@ export class InterviewReport {
         if (interviewReport){
             this.interviewer = interviewReport.interviewer
             this.interviewee = interviewReport.interviewee
+            this.round = interviewReport.round
             this.date = interviewReport.date
             this.location = interviewReport.location
             this.content = interviewReport.content
@@ -14,6 +15,9 @@ export class InterviewReport {
             this.rating = interviewReport.rating
         }
     }
+
+    @Prop({require: true})
+    round: number    
 
     @Prop({required: true})
     location: string

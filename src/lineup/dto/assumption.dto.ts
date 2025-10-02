@@ -1,7 +1,7 @@
 import { IsDate, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator"
 import { ObjectId } from "mongodb"
 
-export class CreateAssignmentDto{
+export class CreateAssumptionDto{
     
     @IsDate()
     @IsOptional()
@@ -24,4 +24,4 @@ export class CreateAssignmentDto{
     lastUpdate: Date
 }
 
-export class UpdateAssignmentDto extends CreateAssignmentDto{}
+export class UpdateAssumptionDto extends CreateAssumptionDto{}

@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { ParseObjectIdPipe } from '@nestjs/mongoose';
 
 import { CreatePayrollDto, UpdatePayrollDto } from './dto/payroll.dto';
 import { CreatePayrollAdjustmentDto, UpdatePayrollAdjustmentDto } from './dto/payrollAdjustment.dto';
 
-import { PayrollAdjustmentService, PayrollService } from './payroll.service';
+import { AttendanceService, PayrollAdjustmentService, PayrollService } from './payroll.service';
+import { CreateAttendanceDto, UpdateAttendanceDto } from './dto/attendance.dto';
 
 @Controller('payroll')
 export class PayrollController {
@@ -78,5 +79,41 @@ export class PayrollAdjustmentController {
   @Delete('id/:id')
   delete(@Param('id', ParseObjectIdPipe) id:string){
     return this.payrollAdjustmentService.remove(id)
+  }
+}
+
+
+@Controller('attendance')
+export class AttendanceController {
+  constructor(private readonly attendanceService: AttendanceService) {}
+
+  @Get('test')
+  test(){
+    return new Date()
+  }
+
+  @Post()
+  create(@Body(new ValidationPipe) createAttendanceDto: CreateAttendanceDto) {
+    return this.attendanceService.create(createAttendanceDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.attendanceService.findAll();
+  }
+
+  @Get('id/:id')
+  findOne(@Param('id', ParseObjectIdPipe) id: string) {
+    return this.attendanceService.findOneById(id);
+  }
+
+  @Patch('id/:id')
+  update(@Param('id', ParseObjectIdPipe) id: string, @Body() updateAttendanceDto: UpdateAttendanceDto) {
+    return this.attendanceService.update(id, updateAttendanceDto);
+  }
+
+  @Delete('id/:id')
+  remove(@Param('id', ParseObjectIdPipe) id: string) {
+    return this.attendanceService.remove(id);
   }
 }

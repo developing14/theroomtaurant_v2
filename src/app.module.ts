@@ -8,9 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { AccountModule } from './account/account.module'
 import { AuthModule } from './auth/auth.module';
 import { EmployeeModule } from './employee/employee.module';
-import { DepartmentModule } from './department/department.module';
-import { AttendanceModule } from './attendance/attendance.module';
-import { PositionModule } from './position/position.module';
+import { LineupModule } from './lineup/lineup.module';
 import { RecruitModule } from './recruit/recruit.module';
 import { PayrollModule } from './payroll/payroll.module';
 
@@ -28,7 +26,7 @@ import { PayrollModule } from './payroll/payroll.module';
         dbName: configService.get<string>('DATABASE_NAME')
       }),
     }),
-    AccountModule, AuthModule, EmployeeModule, DepartmentModule, AttendanceModule, PositionModule, RecruitModule, PayrollModule],
+    AccountModule, AuthModule, EmployeeModule, LineupModule, RecruitModule, PayrollModule],
   controllers: [AppController],
   providers: [AppService],
 })
