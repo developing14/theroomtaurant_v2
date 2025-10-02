@@ -5,7 +5,6 @@ import { MongooseModule } from '@nestjs/mongoose'
 
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
-import { AccountModule } from './account/account.module'
 import { AuthModule } from './auth/auth.module';
 import { EmployeeModule } from './employee/employee.module';
 import { LineupModule } from './lineup/lineup.module';
@@ -26,7 +25,7 @@ import { PayrollModule } from './payroll/payroll.module';
         dbName: configService.get<string>('DATABASE_NAME')
       }),
     }),
-    AccountModule, AuthModule, EmployeeModule, LineupModule, RecruitModule, PayrollModule],
+    AuthModule, EmployeeModule, LineupModule, RecruitModule, PayrollModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,18 +1,21 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { AccountModule } from 'src/account/account.module';
+import { AccountController, AuthController } from './auth.controller';
+import { AccountService, AuthService } from './auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Account, AccountSchema } from './schema/account.schema';
 
 @Module({
   imports: [
-    AccountModule, 
+    MongooseModule.forFeature([
+      {name: Account.name, schema: AccountSchema}
+    ]),
     JwtModule.register({
       global: true,
       secret: process.env.MYSECRET,
     })
   ],
-  controllers: [AuthController],
-  providers: [AuthService, JwtService]
+  controllers: [AuthController, AccountController],
+  providers: [AuthService, JwtService, AccountService]
 })
 export class AuthModule {}

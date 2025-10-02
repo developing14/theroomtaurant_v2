@@ -1,8 +1,64 @@
 import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { AccountService } from 'src/account/account.service';
-import * as bcrypt from 'bcrypt'
+
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { InjectModel } from '@nestjs/mongoose';
+
+import { Model } from 'mongoose'
+import * as bcrypt from 'bcrypt'
+
+import { CreateAccountDto, UpdateAccountDto } from './dto/account.dto';
+
+import { Account } from './schema/account.schema';
+
+@Injectable()
+export class AccountService {
+
+  constructor(@InjectModel('Account') private readonly accountModel:Model<Account>) {}  
+
+  create(createAccountDto: CreateAccountDto) {    
+    const created = new this.accountModel(createAccountDto);
+    created.password = bcrypt.hashSync(createAccountDto.password, 10)
+    return created.save();
+  }
+
+  findAll() {
+    return this.accountModel.find();
+  }
+
+  findOneById(id: string) {
+    return this.accountModel.findById(id);
+  }
+
+  findOneByLoginName(loginName: string) {
+    return this.accountModel.findOne({loginName:loginName});
+  }
+
+  findOneByEmail(email: string) {
+    return this.accountModel.findOne({email: email});
+  }
+
+  async isExisted(identifier:any):Promise<null | string>{
+    if (await this.findOneByLoginName(identifier)) return 'Login Name is used'
+    if (await this.findOneByEmail(identifier)) return 'Email is used'
+      
+    return null
+  }
+
+  update(id: string, updateAccountDto: UpdateAccountDto) {
+    return this.accountModel.updateOne({_id: id}, updateAccountDto);
+  }
+
+  remove(id: string) {
+    return this.accountModel.updateOne({_id: id}, {isDeleted: true});
+  }
+  
+  restore(id: string){
+    return this.accountModel.updateOne({_id: id}, {isDeleted: false});
+  }
+  
+}
+
 
 @Injectable()
 export class AuthService {    
@@ -21,7 +77,7 @@ export class AuthService {
         const isMatched = bcrypt.compareSync(password, target.password)
         if (!isMatched) throw new UnauthorizedException('Wrong password')
 
-        const isDeletedd = target.isDeletedd
+        const isDeletedd = target.isDeleted
         
         if (isDeletedd) throw new ForbiddenException('Account is not activated')
 
